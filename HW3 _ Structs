@@ -1,0 +1,142 @@
+//Exercise 1:
+struct Person {
+    name: String,
+    age: u8,
+    hobby: String
+}
+
+fn exercise1() -> Person {
+    let age = 30;
+    // Hobby = Rust 
+    let p = Person {
+        name: String::from("sunface"),
+        age,
+        hobby: String::from("Rust")
+    };
+
+    p
+}
+
+//Exercise 2:
+struct Agent {
+    name: String,
+    age: u32,
+}
+
+impl Agent {
+    fn new(name: String, age: u32) -> Agent {
+        Agent { name, age }
+    }
+
+    fn get_name(&self) -> &str {
+        &self.name
+    }
+
+    fn get_age(&self) -> u32 {
+        self.age
+    }
+}
+
+//Exercise 3:
+struct Calculator {
+    value: i32,
+}
+
+impl Calculator {
+    fn new() -> Self {
+        Calculator { value: 0 }
+    }
+
+    fn add(&mut self, num: i32) {
+        self.value += num;
+    }
+
+    fn subtract(&mut self, num: i32) {
+        self.value -= num;
+    }
+
+    fn clear(&mut self) {
+        self.value = 0;
+    }
+
+    fn get_value(&self) -> i32 {
+        self.value
+    }
+}
+
+//Exercise 4:
+#[derive(Debug)]
+struct User {
+    first: String,
+    last: String,
+    age: u32,
+}
+
+fn exercise4() {
+    let u1 = User {
+        first: String::from("John"),
+        last: String::from("Doe"),
+        age: 22,
+    };
+
+    let u2 = User {
+        first: String::from("Mary"),
+        last: u1.last,
+        age: 24,
+    };
+
+    println!("user: {:#?}", u1);
+}
+
+//Exercise 5:
+struct Foo {
+    str_val: String,
+    int_val: i32,
+}
+
+fn exercise5() {
+    let mut foos = Vec::new();
+    foos.push(Foo {
+        str_val: "ten".to_string(),
+        int_val: 10,
+    });
+    foos.push(Foo {
+        str_val: "twenty".to_string(),
+        int_val: 20,
+    });
+
+    let moved = foos[0].clone();
+
+    let moved_field = foos[0].str_val.clone();
+}
+
+//Exercise 6:
+#[derive(Debug)]
+struct Package {
+    sender_country: String,
+    recipient_country: String,
+    weight_in_grams: i32,
+}
+
+impl Package {
+    fn new(sender_country: String, recipient_country: String, weight_in_grams: i32) -> Package {
+        if weight_in_grams <= 0 {
+            panic!("Can not ship a weightless package.")
+        } else {
+            Package {
+                sender_country,
+                recipient_country,
+                weight_in_grams,
+            }
+        }
+    }
+
+    fn is_international(&self) -> bool {
+        self.sender_country != self.recipient_country
+    }
+
+    fn get_fees(&self, cents_per_gram: i32) -> i32 {
+        self.weight_in_grams * cents_per_gram
+    }
+}
+
